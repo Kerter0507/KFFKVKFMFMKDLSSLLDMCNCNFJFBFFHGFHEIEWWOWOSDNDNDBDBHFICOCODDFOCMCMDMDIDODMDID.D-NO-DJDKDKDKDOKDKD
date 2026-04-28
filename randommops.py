@@ -6,8 +6,7 @@ import asyncio
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ( ApplicationBuilder, CommandHandler, ContextTypes, CallbackQueryHandler )
 from telegram.ext import MessageHandler, filters
-import os
-TOKEN = os.getenv("8788193406:AAExA1aI4feuzuf5hgD2CPc5r9MsCEL0hT4")
+TOKEN = ("8788193406:AAExA1aI4feuzuf5hgD2CPc5r9MsCEL0hT4")
 ADMIN_ID = 1257248239
 COOLDOWN = 10800
 
