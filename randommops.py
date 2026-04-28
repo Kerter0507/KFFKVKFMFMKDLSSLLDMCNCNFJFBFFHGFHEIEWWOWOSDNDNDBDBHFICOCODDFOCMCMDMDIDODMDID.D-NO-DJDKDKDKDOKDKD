@@ -8,6 +8,7 @@ from telegram.ext import ( ApplicationBuilder, CommandHandler, ContextTypes, Cal
 from telegram.ext import MessageHandler, filters
 TOKEN = ("8788193406:AAExA1aI4feuzuf5hgD2CPc5r9MsCEL0hT4")
 ADMIN_ID = 1257248239
+ADMIN_ID = 1828539810
 COOLDOWN = 10800
 
 IMAGES = [
