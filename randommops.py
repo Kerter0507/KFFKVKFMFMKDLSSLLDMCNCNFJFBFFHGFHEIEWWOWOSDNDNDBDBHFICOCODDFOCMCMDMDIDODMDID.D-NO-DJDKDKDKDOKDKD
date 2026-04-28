@@ -128,6 +128,10 @@ async def shop(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def mops(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.message:
+    message = update.message
+else:
+    message = update.callback_query.message
     user_id = update.effective_user.id
     now = time.time()
     today = datetime.date.today()
