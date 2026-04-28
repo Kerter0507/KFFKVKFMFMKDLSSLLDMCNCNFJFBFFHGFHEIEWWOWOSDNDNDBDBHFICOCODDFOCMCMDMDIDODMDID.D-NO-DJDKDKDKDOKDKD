@@ -9,7 +9,7 @@ from telegram.ext import MessageHandler, filters
 TOKEN = ("8788193406:AAExA1aI4feuzuf5hgD2CPc5r9MsCEL0hT4")
 ADMIN_ID = 1257248239
 ADMIN_ID = 1828539810
-COOLDOWN = 10800
+COOLDOWN = 1800
 
 IMAGES = [
     ("https://i.pinimg.com/originals/82/b9/8f/82b98f58172f08476b66d6fa59f31b3f.jpg?nii=t",
