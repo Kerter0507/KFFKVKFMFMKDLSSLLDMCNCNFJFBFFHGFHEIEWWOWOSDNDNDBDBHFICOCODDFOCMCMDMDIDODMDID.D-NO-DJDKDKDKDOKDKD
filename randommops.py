@@ -129,9 +129,10 @@ async def shop(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def mops(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message:
-    message = update.message
-else:
-    message = update.callback_query.message
+        message = update.message
+    else:
+        message = update.callback_query.message
+
     user_id = update.effective_user.id
     now = time.time()
     today = datetime.date.today()
@@ -142,6 +143,7 @@ else:
     if row:
         last_used, streak, coins = row
         last_date = datetime.date.fromtimestamp(last_used)
+
         if now - last_used < COOLDOWN:
             remaining = int(COOLDOWN - (now - last_used))
 
@@ -149,10 +151,9 @@ else:
             minutes = (remaining % 3600) // 60
 
             if hours > 0:
-                await update.message.reply_text(f"⏳ Подожди {hours} ч. {minutes} мин.")
+                await message.reply_text(f"⏳ Подожди {hours} ч. {minutes} мин.")
             else:
-                await update.message.reply_text(f"⏳ Подожди {minutes} мин.")
-
+                await message.reply_text(f"⏳ Подожди {minutes} мин.")
             return
 
         if last_date == today:
@@ -167,7 +168,6 @@ else:
 
     cursor.execute("SELECT card_id FROM collection WHERE user_id=?", (user_id,))
     owned = {row[0] for row in cursor.fetchall()}
-
     # список доступных (которых еще нет)
     available = [i for i in range(len(IMAGES) - 1) if i not in owned]
     if not available:
