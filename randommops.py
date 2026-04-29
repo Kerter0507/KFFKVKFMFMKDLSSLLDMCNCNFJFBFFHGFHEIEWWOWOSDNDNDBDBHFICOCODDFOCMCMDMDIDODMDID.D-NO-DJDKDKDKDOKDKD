@@ -59,7 +59,7 @@ IMAGES = [
     ("https://cdn.corenexis.com/files/c/3829398720.jpg", "Мопс пчеловод\nобычный\nкарточка 37/45"),
     ("https://cdn.corenexis.com/files/c/7946282720.jpg", "Мопс в ванне\nобычный\nкарточка 38/45"),
     ("https://cdn.corenexis.com/files/c/8288725720.jpg", "Мопс военный\nобычный\nкарточка 39/45"),
-    ("https://cdn.corenexis.com/files/c/1853145720.jpg", "Мопс снайпер\nэрпик\nкарточка 40/45"),
+    ("https://cdn.corenexis.com/files/c/1853145720.jpg", "Мопс снайпер\nэпик\nкарточка 40/45"),
     ("https://cdn.corenexis.com/files/c/1963245720.jpg", "Мопс гонщик\nредкий\nкарточка 41/45"),
     ("https://cdn.corenexis.com/files/c/8697164720.jpg", "Мопс хакер\nЭксклюзив\nкарточка 42/45"),
 
