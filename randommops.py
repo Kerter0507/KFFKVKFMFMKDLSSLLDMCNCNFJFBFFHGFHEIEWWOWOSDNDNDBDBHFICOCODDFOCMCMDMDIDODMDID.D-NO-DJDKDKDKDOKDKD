@@ -128,6 +128,7 @@ async def shop(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def mops(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # универсальное сообщение (группа / лс / кнопка)
     if update.message:
         message = update.message
     else:
@@ -144,6 +145,7 @@ async def mops(update: Update, context: ContextTypes.DEFAULT_TYPE):
         last_used, streak, coins = row
         last_date = datetime.date.fromtimestamp(last_used)
 
+        # КД — теперь общий (и для группы, и для лс)
         if now - last_used < COOLDOWN:
             remaining = int(COOLDOWN - (now - last_used))
 
@@ -168,24 +170,37 @@ async def mops(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     cursor.execute("SELECT card_id FROM collection WHERE user_id=?", (user_id,))
     owned = {row[0] for row in cursor.fetchall()}
-    # список доступных (которых еще нет)
+
     available = [i for i in range(len(IMAGES) - 1) if i not in owned]
+
     if not available:
-        await query.message.reply_text("Ты собрал все карты 🐶")
+        await message.reply_text("Ты собрал все карты 🐶")
         return
 
     card_id = random.choice(available)
 
-    # если все собраны — даем любую
-    available = [i for i in range(len(IMAGES) - 1) if i not in owned]
-
-    if not available:
-        card_id = random.randint(0, len(IMAGES) - 2)
-    else:
-        card_id = random.choice(available)
-
     img, cap = IMAGES[card_id]
 
+    rarity = get_rarity(cap)
+    reward = REWARD.get(rarity, 5)
+    coins += reward
+
+    cursor.execute("INSERT OR IGNORE INTO collection VALUES (?, ?)", (user_id, card_id))
+    cursor.execute("""
+    INSERT INTO users (user_id, last_used, streak, coins)
+    VALUES (?, ?, ?, ?)
+    ON CONFLICT(user_id) DO UPDATE SET
+        last_used=excluded.last_used,
+        streak=excluded.streak,
+        coins=excluded.coins
+    """, (user_id, now, streak, coins))
+
+    conn.commit()
+
+    await message.reply_photo(
+        photo=img,
+        caption=f"{cap}\n\n💰 +{reward}\n🔥 {streak}\n💸 {coins}"
+    )
     rarity = get_rarity(cap)
     reward = REWARD.get(rarity, 5)
     coins += reward
